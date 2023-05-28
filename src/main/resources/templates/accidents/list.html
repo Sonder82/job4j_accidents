@@ -18,8 +18,8 @@
             <a class="navbar-brand" href="/">Job4j Accidents</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link active" href="/">Главная</a>
-                    <a class="nav-item nav-link" th:href="@{/accidents}">Автомобильные инциденты</a>
+                    <a class="nav-item nav-link" href="/">Главная</a>
+                    <a class="nav-item nav-link active" th:href="@{/accidents}">Автомобильные инциденты</a>
                 </div>
                 <div class="d-flex">
                     <a class="nav-link text-secondary me-3" href="#" th:text="${user}"></a>
@@ -27,6 +27,28 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Текст</th>
+                    <th scope="col">Адрес</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="accident: ${accidents}">
+                    <td th:text="${accident.id}" />
+                    <td th:text="${accident.name}" />
+                    <td th:text="${accident.text}" />
+                    <td th:text="${accident.address}" />
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>
