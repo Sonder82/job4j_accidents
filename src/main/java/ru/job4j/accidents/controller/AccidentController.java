@@ -46,16 +46,11 @@ public class AccidentController {
 
     @PostMapping("/editAccident")
     public String update(@ModelAttribute Accident accident, Model model) {
-        try {
             boolean isUpdated = accidentService.update(accident);
             if (!isUpdated) {
                 model.addAttribute("message", "Инцидент с указанным идентификатором не найден");
                 return "errors/404";
             }
             return "redirect:/accidents";
-        } catch (Exception exception) {
-            model.addAttribute("message", exception.getMessage());
-            return "errors/404";
-        }
     }
 }
