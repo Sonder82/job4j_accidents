@@ -32,9 +32,7 @@ public class AccidentController {
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, @RequestParam("type.id") int id) {
-        var type = typeService.findById(id).get();
-        accident.setType(type);
+    public String save(@ModelAttribute Accident accident) {
         accidentService.save(accident);
         return "redirect:/accidents";
     }
@@ -52,9 +50,7 @@ public class AccidentController {
     }
 
     @PostMapping("/editAccident")
-    public String update(@ModelAttribute Accident accident, Model model, @RequestParam("type.id") int id) {
-        var type = typeService.findById(id).get();
-        accident.setType(type);
+    public String update(@ModelAttribute Accident accident, Model model) {
         boolean isUpdated = accidentService.update(accident);
         if (!isUpdated) {
             model.addAttribute("message", "Инцидент с указанным идентификатором не найден");

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.AccidentMem;
+import ru.job4j.accidents.repository.AccidentTypeMem;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -14,9 +15,18 @@ public class SimpleAccidentService implements AccidentService {
 
     private final AccidentMem accidentRepository;
 
+    private final AccidentTypeMem typeRepository;
+
     @Override
-    public Accident save(Accident accident) {
-        return accidentRepository.save(accident);
+    public Optional<Accident> save(Accident accident) {
+        Optional<Accident> result = Optional.empty();
+        var type = typeRepository.findById(accident.getType().getId());
+        if (type.isPresent()) {
+            accident.setType(type.get());
+            accidentRepository.save(accident);
+            result = Optional.of(accident);
+        }
+        return result;
     }
 
     @Override
@@ -26,7 +36,13 @@ public class SimpleAccidentService implements AccidentService {
 
     @Override
     public boolean update(Accident accident) {
-        return accidentRepository.update(accident);
+        boolean result = false;
+        var type = typeRepository.findById(accident.getType().getId());
+        if (type.isPresent()) {
+            accident.setType(type.get());
+            result = accidentRepository.update(accident);
+        }
+        return result;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AccidentMem {
 
-    Accident save(Accident accident);
+    Optional<Accident> save(Accident accident);
 
     boolean deleteById(int id);
 

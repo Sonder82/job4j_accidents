@@ -28,10 +28,10 @@ public class MemoryAccidentRepository implements AccidentMem {
     }
 
     @Override
-    public Accident save(Accident accident) {
+    public Optional<Accident> save(Accident accident) {
         accident.setId(id.incrementAndGet());
         accidents.put(accident.getId(), accident);
-        return accident;
+        return Optional.of(accident);
     }
 
     @Override
