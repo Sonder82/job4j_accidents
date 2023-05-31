@@ -42,6 +42,12 @@
                            placeholder="Укажите инцидент">
                 </div>
                 <div class="mb-3">
+                    <label for="type"><b>Тип</b></label>
+                    <select class="form-control" id="type" name="type.id">
+                        <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label for="text" class="form-label"><b>Описание инцидента</b></label>
                     <textarea class="form-control" id="text" name="text" th:field="*{text}"
                               rows="10" placeholder="Опишите инцидент"></textarea>

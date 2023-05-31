@@ -2,6 +2,7 @@ package ru.job4j.accidents.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 
 import java.util.Collection;
 import java.util.Map;
@@ -18,11 +19,11 @@ public class MemoryAccidentRepository implements AccidentMem {
 
     public MemoryAccidentRepository() {
 
-        save(new Accident(0, "Нарушение ПДД",
+        save(new Accident(0, "Нарушение ПДД", new AccidentType(),
                 "Проезд на красный свет", "Екатеринбург,проспект Ленина 10"));
-        save(new Accident(0, "ДТП",
+        save(new Accident(0, "ДТП двух автомобилей", new AccidentType(),
                 "Столкновение двух автомобилей", "Екатеринбург, улица Малышева 14"));
-        save(new Accident(0, "Происшествие на дороге",
+        save(new Accident(0, "Происшествие на дороге", new AccidentType(),
                 "Открытый люк", "Екатеринбург, улица Московская 123"));
     }
 
@@ -42,7 +43,7 @@ public class MemoryAccidentRepository implements AccidentMem {
     public boolean update(Accident accident) {
         return accidents.computeIfPresent(
                 accident.getId(), (id, oldAccident) -> new Accident(
-                        id, accident.getName(), accident.getText(),
+                        id, accident.getName(), accident.getType(), accident.getText(),
                         accident.getAddress())) != null;
     }
 
