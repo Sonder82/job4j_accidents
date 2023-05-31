@@ -33,8 +33,8 @@ public class AccidentController {
         return "redirect:/accidents";
     }
 
-    @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable int id) {
+    @GetMapping("/editAccident")
+    public String getById(Model model, @RequestParam("id") int id) {
         Optional<Accident> accidentOptional = accidentService.findById(id);
         if (accidentOptional.isEmpty()) {
             model.addAttribute("message", "Инцидент с указанным идентификатором не найден");
