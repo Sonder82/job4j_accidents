@@ -3,10 +3,12 @@ package ru.job4j.accidents.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.model.Rule;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,11 +21,11 @@ public class MemoryAccidentRepository implements AccidentMem {
 
     public MemoryAccidentRepository() {
 
-        save(new Accident(0, "Нарушение ПДД", new AccidentType(),
+        save(new Accident(0, "Нарушение ПДД", new AccidentType(), Set.of(new Rule()),
                 "Проезд на красный свет", "Екатеринбург,проспект Ленина 10"));
-        save(new Accident(0, "ДТП двух автомобилей", new AccidentType(),
+        save(new Accident(0, "ДТП двух автомобилей", new AccidentType(), Set.of(new Rule()),
                 "Столкновение двух автомобилей", "Екатеринбург, улица Малышева 14"));
-        save(new Accident(0, "Происшествие на дороге", new AccidentType(),
+        save(new Accident(0, "Происшествие на дороге", new AccidentType(), Set.of(new Rule()),
                 "Открытый люк", "Екатеринбург, улица Московская 123"));
     }
 
@@ -43,7 +45,7 @@ public class MemoryAccidentRepository implements AccidentMem {
     public boolean update(Accident accident) {
         return accidents.computeIfPresent(
                 accident.getId(), (id, oldAccident) -> new Accident(
-                        id, accident.getName(), accident.getType(), accident.getText(),
+                        id, accident.getName(), accident.getType(), accident.getRules(), accident.getText(),
                         accident.getAddress())) != null;
     }
 
