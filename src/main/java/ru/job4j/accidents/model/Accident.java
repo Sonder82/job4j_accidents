@@ -22,7 +22,7 @@ public class Accident {
 
     private Set<Rule> rules;
 
-    private String text;
+    private String description;
 
     private String address;
 

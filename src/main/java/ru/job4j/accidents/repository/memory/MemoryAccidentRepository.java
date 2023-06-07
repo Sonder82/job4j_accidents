@@ -46,7 +46,7 @@ public class MemoryAccidentRepository implements AccidentMem {
     public boolean update(Accident accident) {
         return accidents.computeIfPresent(
                 accident.getId(), (id, oldAccident) -> new Accident(
-                        id, accident.getName(), accident.getType(), accident.getRules(), accident.getText(),
+                        id, accident.getName(), accident.getType(), accident.getRules(), accident.getDescription(),
                         accident.getAddress())) != null;
     }
 
