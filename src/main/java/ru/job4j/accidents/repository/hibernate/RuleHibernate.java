@@ -1,0 +1,79 @@
+package ru.job4j.accidents.repository.hibernate;
+
+import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.RuleMem;
+
+import java.util.*;
+
+@Repository
+@AllArgsConstructor
+public class RuleHibernate implements RuleMem {
+
+    private static final Logger LOG = LoggerFactory.getLogger(RuleHibernate.class.getName());
+
+    private final CrudRepository crudRepository;
+
+    @Override
+    public Rule save(Rule rule) {
+        try {
+            crudRepository.run(session -> session.persist(rule));
+        } catch (Exception e) {
+            LOG.error("Error message: " + e.getMessage(), e);
+        }
+        return rule;
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        boolean rsl = false;
+        try {
+            crudRepository.run(
+                    "DELETE Rule WHERE id = :fId",
+                    Map.of("fId", id)
+            );
+            rsl = true;
+        } catch (Exception e) {
+            LOG.error("Error message: " + e.getMessage(), e);
+        }
+        return rsl;
+    }
+
+    @Override
+    public boolean update(Rule rule) {
+        boolean rsl = false;
+        try {
+            crudRepository.run(session -> session.merge(rule));
+            rsl = true;
+        } catch (Exception e) {
+            LOG.error("Error message: " + e.getMessage(), e);
+        }
+        return rsl;
+    }
+
+    @Override
+    public Optional<Rule> findById(int id) {
+        return crudRepository.optional(
+                "FROM Rule r WHERE r.id = :fId", Rule.class,
+                Map.of("fId", id)
+        );
+    }
+
+    @Override
+    public Set<Rule> findByIdList(List<Integer> listId) {
+        Set<Rule> ruleSet = new HashSet<>();
+        for (Integer integer : listId) {
+            ruleSet.add(findById(integer).get());
+        }
+        return ruleSet;
+    }
+
+    @Override
+    public Collection<Rule> findAll() {
+        return crudRepository.query(
+                "SELECT DISTINCT a FROM Rule", Rule.class);
+    }
+}
