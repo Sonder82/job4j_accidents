@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentMem;
-import ru.job4j.accidents.repository.AccidentTypeMem;
-import ru.job4j.accidents.repository.RuleMem;
+import ru.job4j.accidents.repository.*;
 import ru.job4j.accidents.service.AccidentService;
 
 import java.util.Collection;
@@ -18,11 +16,13 @@ import java.util.Set;
 @AllArgsConstructor
 public class HibernateAccidentService implements AccidentService {
 
-    private final AccidentMem accidentRepository;
+    private final AccidentRepository accidentRepository;
 
-    private final AccidentTypeMem typeRepository;
+    private final AccidentTypeRepository typeRepository;
 
-    private final RuleMem ruleRepository;
+    private final RuleRepository ruleRepository;
+
+    private final RuleMem ruleMemory;
 
     @Override
     public Optional<Accident> save(Accident accident, List<Integer> list) {
@@ -30,7 +30,7 @@ public class HibernateAccidentService implements AccidentService {
         var type = typeRepository.findById(accident.getType().getId());
         if (type.isPresent()) {
             accident.setType(type.get());
-            Set<Rule> rulesID = ruleRepository.findByIdList(list);
+            Set<Rule> rulesID = ruleMemory.findByIdList(list);
             accident.setRules(rulesID);
             accidentRepository.save(accident);
             result = Optional.of(accident);
@@ -40,7 +40,8 @@ public class HibernateAccidentService implements AccidentService {
 
     @Override
     public boolean deleteById(int id) {
-        return accidentRepository.deleteById(id);
+        accidentRepository.deleteById(id);
+        return true;
     }
 
     @Override
@@ -49,9 +50,10 @@ public class HibernateAccidentService implements AccidentService {
         var type = typeRepository.findById(accident.getType().getId());
         if (type.isPresent()) {
             accident.setType(type.get());
-            Set<Rule> rulesID = ruleRepository.findByIdList(list);
+            Set<Rule> rulesID = ruleMemory.findByIdList(list);
             accident.setRules(rulesID);
-            result = accidentRepository.update(accident);
+            accidentRepository.save(accident);
+            result = true;
         }
         return result;
     }

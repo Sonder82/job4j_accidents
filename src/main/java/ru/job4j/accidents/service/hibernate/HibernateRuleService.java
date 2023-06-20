@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.RuleMem;
+import ru.job4j.accidents.repository.RuleRepository;
 import ru.job4j.accidents.service.RuleService;
 
 import java.util.Collection;
@@ -15,7 +16,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class HibernateRuleService implements RuleService {
 
-    private final RuleMem ruleRepository;
+    private RuleMem ruleMemory;
+
+    private final RuleRepository ruleRepository;
 
     @Override
     public Rule save(Rule rule) {
@@ -24,12 +27,14 @@ public class HibernateRuleService implements RuleService {
 
     @Override
     public boolean deleteById(int id) {
-        return ruleRepository.deleteById(id);
+        ruleRepository.deleteById(id);
+        return true;
     }
 
     @Override
     public boolean update(Rule rule) {
-        return ruleRepository.update(rule);
+        ruleRepository.save(rule);
+        return true;
     }
 
     @Override
@@ -39,7 +44,7 @@ public class HibernateRuleService implements RuleService {
 
     @Override
     public Set<Rule> findByIdList(List<Integer> listId) {
-        return ruleRepository.findByIdList(listId);
+        return ruleMemory.findByIdList(listId);
     }
 
     @Override

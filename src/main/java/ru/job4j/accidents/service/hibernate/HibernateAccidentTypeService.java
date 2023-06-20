@@ -3,7 +3,7 @@ package ru.job4j.accidents.service.hibernate;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.repository.AccidentTypeMem;
+import ru.job4j.accidents.repository.AccidentTypeRepository;
 import ru.job4j.accidents.service.AccidentTypeService;
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class HibernateAccidentTypeService implements AccidentTypeService {
 
-    private final AccidentTypeMem typeRepository;
+    private final AccidentTypeRepository typeRepository;
 
     @Override
     public AccidentType save(AccidentType type) {
@@ -22,12 +22,14 @@ public class HibernateAccidentTypeService implements AccidentTypeService {
 
     @Override
     public boolean deleteById(int id) {
-        return typeRepository.deleteById(id);
+        typeRepository.deleteById(id);
+        return true;
     }
 
     @Override
     public boolean update(AccidentType type) {
-        return typeRepository.update(type);
+         typeRepository.save(type);
+        return true;
     }
 
     @Override
