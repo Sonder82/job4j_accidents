@@ -1,8 +1,6 @@
 package ru.job4j.accidents.repository.hibernate;
 
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.AccidentMem;
@@ -15,47 +13,26 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AccidentHibernate implements AccidentMem {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccidentHibernate.class.getName());
-
     private final CrudRepository crudRepository;
 
     @Override
     public Optional<Accident> save(Accident accident) {
-        Optional<Accident> rsl = Optional.empty();
-        try {
-            crudRepository.run(session -> session.persist(accident));
-            rsl = Optional.of(accident);
-        } catch (Exception e) {
-            LOG.error("Error message: " + e.getMessage(), e);
-        }
-        return rsl;
+        crudRepository.run(session -> session.persist(accident));
+        return Optional.of(accident);
     }
 
     @Override
     public boolean deleteById(int id) {
-        boolean rsl = false;
-        try {
-            crudRepository.run(
+        return crudRepository.booleanQuery(
                     "DELETE Accident WHERE id = :fId",
                     Map.of("fId", id)
             );
-            rsl = true;
-        } catch (Exception e) {
-            LOG.error("Error message: " + e.getMessage(), e);
-        }
-        return rsl;
     }
 
     @Override
     public boolean update(Accident accident) {
-        boolean rsl = false;
-        try {
             crudRepository.run(session -> session.merge(accident));
-            rsl = true;
-        } catch (Exception e) {
-            LOG.error("Error message: " + e.getMessage(), e);
-        }
-        return rsl;
+        return true;
     }
 
     @Override
