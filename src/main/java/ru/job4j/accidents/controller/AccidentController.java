@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.service.AccidentService;
-import ru.job4j.accidents.service.AccidentTypeService;
-import ru.job4j.accidents.service.RuleService;
+import ru.job4j.accidents.service.data.DataAccidentService;
+import ru.job4j.accidents.service.data.DataAccidentTypeService;
+import ru.job4j.accidents.service.data.DataRuleService;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +17,11 @@ import java.util.Optional;
 @RequestMapping("/accidents")
 public class AccidentController {
 
-    private final AccidentService accidentService;
+    private final DataAccidentService accidentService;
 
-    private final AccidentTypeService typeService;
+    private final DataAccidentTypeService typeService;
 
-    private final RuleService ruleService;
+    private final DataRuleService ruleService;
 
     @GetMapping
     public String getAll(Model model) {

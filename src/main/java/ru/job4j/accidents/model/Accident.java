@@ -18,6 +18,7 @@ import java.util.Set;
 public class Accident {
 
     @EqualsAndHashCode.Include
+    @Id
     private int id;
 
     private String name;
@@ -26,7 +27,7 @@ public class Accident {
     @JoinColumn(name = "accident_type_id")
     private AccidentType type;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "accident_rules", joinColumns = {
             @JoinColumn(name = "accident_id", nullable = false, updatable = false)},
