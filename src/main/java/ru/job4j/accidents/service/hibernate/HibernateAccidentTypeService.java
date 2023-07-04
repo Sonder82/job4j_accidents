@@ -3,7 +3,7 @@ package ru.job4j.accidents.service.hibernate;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.repository.AccidentTypeRepository;
+import ru.job4j.accidents.repository.hibernate.AccidentTypeHibernate;
 import ru.job4j.accidents.service.AccidentTypeService;
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class HibernateAccidentTypeService implements AccidentTypeService {
 
-    private final AccidentTypeRepository typeRepository;
+    private final AccidentTypeHibernate typeRepository;
 
     @Override
     public AccidentType save(AccidentType type) {

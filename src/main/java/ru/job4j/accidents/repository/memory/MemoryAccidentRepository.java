@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.AccidentMem;
+import ru.job4j.accidents.repository.AccidentRepository;
 
 import java.util.Collection;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-public class MemoryAccidentRepository implements AccidentMem {
+public class MemoryAccidentRepository implements AccidentRepository {
 
     private final AtomicInteger id = new AtomicInteger();
 

@@ -3,7 +3,7 @@ package ru.job4j.accidents.repository.hibernate;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.repository.AccidentTypeMem;
+import ru.job4j.accidents.repository.AccidentTypeRepository;
 
 import java.util.Collection;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class AccidentTypeHibernate implements AccidentTypeMem {
+public class AccidentTypeHibernate implements AccidentTypeRepository {
 
     private final CrudRepository crudRepository;
 

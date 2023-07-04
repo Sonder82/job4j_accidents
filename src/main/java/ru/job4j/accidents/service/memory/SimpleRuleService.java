@@ -3,7 +3,7 @@ package ru.job4j.accidents.service.memory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.RuleMem;
+import ru.job4j.accidents.repository.memory.MemoryRuleRepository;
 import ru.job4j.accidents.service.RuleService;
 
 import java.util.Collection;
@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class SimpleRuleService implements RuleService {
 
-    private final RuleMem ruleRepository;
+    private final MemoryRuleRepository ruleRepository;
 
     @Override
     public Rule save(Rule rule) {

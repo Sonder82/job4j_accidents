@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.*;
+import ru.job4j.accidents.repository.hibernate.AccidentHibernate;
+import ru.job4j.accidents.repository.hibernate.AccidentTypeHibernate;
+import ru.job4j.accidents.repository.hibernate.RuleHibernate;
 import ru.job4j.accidents.service.AccidentService;
 
 import java.util.Collection;
@@ -16,13 +19,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class HibernateAccidentService implements AccidentService {
 
-    private final AccidentRepository accidentRepository;
+    private final AccidentHibernate accidentRepository;
 
-    private final AccidentTypeRepository typeRepository;
+    private final AccidentTypeHibernate typeRepository;
 
-    private final RuleRepository ruleRepository;
-
-    private final RuleMem ruleMemory;
+    private final RuleHibernate ruleMemory;
 
     @Override
     public Optional<Accident> save(Accident accident, List<Integer> list) {

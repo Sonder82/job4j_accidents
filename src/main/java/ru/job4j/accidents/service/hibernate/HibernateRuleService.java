@@ -3,8 +3,7 @@ package ru.job4j.accidents.service.hibernate;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.RuleMem;
-import ru.job4j.accidents.repository.RuleRepository;
+import ru.job4j.accidents.repository.hibernate.RuleHibernate;
 import ru.job4j.accidents.service.RuleService;
 
 import java.util.Collection;
@@ -16,9 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class HibernateRuleService implements RuleService {
 
-    private RuleMem ruleMemory;
-
-    private final RuleRepository ruleRepository;
+    private final RuleHibernate ruleRepository;
 
     @Override
     public Rule save(Rule rule) {
@@ -44,7 +41,7 @@ public class HibernateRuleService implements RuleService {
 
     @Override
     public Set<Rule> findByIdList(List<Integer> listId) {
-        return ruleMemory.findByIdList(listId);
+        return ruleRepository.findByIdList(listId);
     }
 
     @Override

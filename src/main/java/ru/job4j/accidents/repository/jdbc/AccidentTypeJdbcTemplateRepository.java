@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.repository.AccidentTypeMem;
+import ru.job4j.accidents.repository.AccidentTypeRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class AccidentTypeJdbcTemplateRepository implements AccidentTypeMem {
+public class AccidentTypeJdbcTemplateRepository implements AccidentTypeRepository {
 
     private static final String SQL_INSERT_INTO_ACCIDENT_TYPES = "INSERT INTO accident_types (name) values (?)";
 

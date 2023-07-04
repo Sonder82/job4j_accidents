@@ -2,14 +2,14 @@ package ru.job4j.accidents.repository.memory;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.RuleMem;
+import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-public class MemoryRuleRepository implements RuleMem {
+public class MemoryRuleRepository implements RuleRepository {
 
     private final AtomicInteger id = new AtomicInteger();
 

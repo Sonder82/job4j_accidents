@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.RuleMem;
+import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.*;
 
 @Repository
 @AllArgsConstructor
-public class RuleJdbcTemplateRepository implements RuleMem {
+public class RuleJdbcTemplateRepository implements RuleRepository {
 
     private static final String SQL_INSERT_INTO_RULES = "INSERT INTO rules (name) values (?)";
 

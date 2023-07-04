@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.repository.AccidentMem;
+import ru.job4j.accidents.repository.AccidentRepository;
 import ru.job4j.accidents.resultsetextractor.AccidentResultSetExtractor;
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class AccidentJdbcTemplateRepository implements AccidentMem {
+public class AccidentJdbcTemplateRepository implements AccidentRepository {
 
     private static final String SQL_INSERT_INTO_ACCIDENTS = "INSERT INTO accidents (name,"
           +  " accident_type_id, description, address) values (?, ?, ?, ?)";

@@ -1,19 +1,23 @@
 package ru.job4j.accidents.repository;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.Rule;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-public interface RuleRepository extends CrudRepository<Rule, Integer> {
+public interface RuleRepository {
 
-    @Query("SELECT DISTINCT r FROM Rule")
-    List<Rule> findAll();
+    Rule save(Rule rule);
 
-    @Query("FROM Rule r WHERE r.id = :id")
-    Optional<Rule> findById(@Param("id") int id);
+    boolean deleteById(int id);
+
+    boolean update(Rule rule);
+
+    Optional<Rule> findById(int id);
+
+    Set<Rule> findByIdList(List<Integer> listId);
+
+    Collection<Rule> findAll();
 }
