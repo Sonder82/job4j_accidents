@@ -27,39 +27,28 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
-                <form class="mt-3" th:action="@{/login}" method="post">
-                    <div class="mb-3" th:if="${error}">
-                        <p class="text-danger" th:text="${error}"></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="username" class="form-label"><b>Логин</b></label>
-                        <input type="username" class="form-control" id="username" name="username" placeholder="ivan" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label"><b>Пароль</b></label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="mb-3 row">
-                        <div class="col-7">
-                            <p>Не зарегистрированы? <span><a th:href="@{/register}">Зарегистрироваться</a></span></p>
-                        </div>
-                        <div class="col-5">
-                            <div class="row">
-                                <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/}">Отмена</a></div>
-                                <div class="col-6"><button class="btn btn-primary w-100" type="submit">Войти</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-3"></div>
+<div class="container">
+    <form class="mt-3" th:action="@{/register}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="username" class="form-label"><b>Имя</b></label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Иван">
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="password" class="form-label"><b>Пароль</b></label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-6"></div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/index}">Отмена</a></div>
+                    <div class="col-6"><button class="btn btn-primary w-100" type="submit">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 </div>
 </body>
 </html>
