@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accidents.model.User;
 import ru.job4j.accidents.repository.data.AuthorityRepository;
-import ru.job4j.accidents.repository.data.UserRepository;
+import ru.job4j.accidents.service.data.DataUserService;
 
 @Controller
 @AllArgsConstructor
 public class RegController {
 
     private final PasswordEncoder encoder;
-    private final UserRepository users;
+    private final DataUserService userService;
     private final AuthorityRepository authorities;
 
     @GetMapping("/register")
@@ -25,13 +25,16 @@ public class RegController {
     }
 
     @PostMapping("/register")
-    public String regSave(@ModelAttribute User user) {
+    public String regSave(Model model, @ModelAttribute User user) {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorities.findByAuthority("ROLE_USER"));
-        users.save(user);
+        var userOptional = userService.save(user);
+        if (userOptional.isEmpty()) {
+            String errorMessage = user.getUsername() + " пользователь с таким именем уже существует";
+            model.addAttribute("errorMessage", errorMessage);
+            return "register";
+        }
         return "redirect:/login";
     }
-
-
 }
