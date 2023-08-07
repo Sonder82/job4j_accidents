@@ -14,9 +14,9 @@ import java.util.Optional;
 @Repository
 public interface AccidentData extends CrudRepository<Accident, Integer> {
 
-    @Query("SELECT DISTINCT a FROM Accident a JOIN FETCH a.rules")
+    @Query("SELECT DISTINCT a FROM Accident AS a JOIN FETCH a.type JOIN FETCH a.rules")
     List<Accident> findAll();
 
-    @Query("FROM Accident a JOIN FETCH a.rules WHERE a.id = :id")
-    Optional<Accident> findById(@Param("id") int id);
+    @Query("SELECT a FROM Accident AS a JOIN FETCH a.type JOIN FETCH a.rules WHERE a.id = :fId")
+    Optional<Accident> findById(@Param("fId") int id);
 }

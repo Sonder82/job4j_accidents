@@ -11,23 +11,34 @@ import ru.job4j.accidents.Main;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
-public class IndexControllerTest {
+class LoginControllerTest {
+
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @WithMockUser
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/index"))
+    public void whenReturnLoginPage() throws Exception {
+        this.mockMvc.perform(get("/login"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(view().name("login"));
+    }
+
+    @Test
+    @WithMockUser
+    public void whenLoginIncorrectThenReturnError() throws Exception {
+        String errorMessage = "Username or Password is incorrect !!";
+
+        this.mockMvc.perform(get("/login?error=true"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("errorMessage", errorMessage))
+                .andExpect(view().name("login"));
     }
 }
