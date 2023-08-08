@@ -7,7 +7,7 @@ import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.*;
 
-@Repository
+//@Repository
 @AllArgsConstructor
 public class RuleHibernate implements RuleRepository {
 

@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
-@Repository
+//@Repository
 @AllArgsConstructor
 public class AccidentTypeHibernate implements AccidentTypeRepository {
 

@@ -9,7 +9,7 @@ import ru.job4j.accidents.service.AccidentTypeService;
 import java.util.Collection;
 import java.util.Optional;
 
-@Service
+//@Service
 @AllArgsConstructor
 public class HibernateAccidentTypeService implements AccidentTypeService {
 
