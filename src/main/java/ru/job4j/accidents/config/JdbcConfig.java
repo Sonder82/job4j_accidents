@@ -10,12 +10,24 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-//@Configuration
-@PropertySource("classpath:db.properties")
-@EnableTransactionManagement
+/**
+ * @Configuration
+ * @PropertySource("classpath:db.properties")
+ * @EnableTransactionManagement
+ * Подключение к базе посредством JDBC
+ */
+
 public class JdbcConfig {
 
-    //@Bean
+    /**
+     * @Bean
+     * @param driver
+     * @param url
+     * @param username
+     * @param password
+     * @return
+     */
+
     public DataSource ds(@Value("${jdbc.driver}") String driver,
                          @Value("${jdbc.url}") String url,
                          @Value("${jdbc.username}") String username,
@@ -28,7 +40,12 @@ public class JdbcConfig {
         return ds;
     }
 
-    //@Bean
+    /**
+     * @Bean
+     * @param ds
+     * @return
+     */
+
     public JdbcTemplate jdbc(DataSource ds) {
         return new JdbcTemplate(ds);
     }

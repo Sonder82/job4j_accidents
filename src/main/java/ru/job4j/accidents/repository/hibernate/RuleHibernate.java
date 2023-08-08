@@ -7,7 +7,10 @@ import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.*;
 
-//@Repository
+/**
+ * Вариант репозитория с Hibernate
+ * @Repository
+ */
 @AllArgsConstructor
 public class RuleHibernate implements RuleRepository {
 

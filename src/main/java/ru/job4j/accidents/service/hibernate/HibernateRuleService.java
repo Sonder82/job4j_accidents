@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-//@Service
+/**
+ * Вариант сервиса с Hibernate
+ * @Service
+ */
 @AllArgsConstructor
 public class HibernateRuleService implements RuleService {
 

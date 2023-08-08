@@ -8,7 +8,10 @@ import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.*;
 
-//@Repository
+/**
+ * Вариант репозитория с JDBC
+ * @Repository
+ */
 @AllArgsConstructor
 public class RuleJdbcTemplateRepository implements RuleRepository {
 
