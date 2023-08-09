@@ -1,6 +1,7 @@
 package ru.job4j.accidents.controller;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,12 +13,15 @@ import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.service.data.DataAccidentService;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -63,5 +67,32 @@ public class AccidentControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("accidents/editAccident"));
+    }
+
+    @Test
+    @WithMockUser
+    void whenPostAccidentThenReturnAccidents() throws Exception {
+        var idRules = List.of(1, 2);
+        var accidentType = new AccidentType(1, "type1");
+        var accident = new Accident(1, "name1", accidentType, Set.of(new Rule()),
+                "description1", "address1");
+
+        this.mockMvc.perform(post("/accidents/saveAccident")
+                        .param("id", String.valueOf(accident.getId()))
+                        .param("name", accident.getName())
+                        .param("type.id", String.valueOf(accident.getType().getId()))
+                        .param("rIds", idRules.get(0).toString(), idRules.get(1).toString())
+                        .param("description", accident.getDescription())
+                        .param("address", accident.getAddress()))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/accidents"));
+
+        ArgumentCaptor<Accident> accidentCaptor = ArgumentCaptor.forClass(Accident.class);
+        ArgumentCaptor<List<Integer>> rIdsCaptor = ArgumentCaptor.forClass(List.class);
+
+        verify(accidentService).save(accidentCaptor.capture(), rIdsCaptor.capture());
+
+        assertThat(accidentCaptor.getValue().getName()).isEqualTo("name1");
     }
 }
